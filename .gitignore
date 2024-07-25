@@ -1,0 +1,7 @@
+/.idea
+/bin
+/terraform
+*-packr.go
+/build/git_askpass.sh
+examples/**/Dockerfile
+examples/**/.cnab
