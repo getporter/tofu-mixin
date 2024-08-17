@@ -5,7 +5,7 @@ export REGISTRY=${REGISTRY:-$USER}
 export REPO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." && pwd )"
 export PORTER_HOME=${PORTER_HOME:-$REPO_DIR/bin}
 # Run tests in a temp directory
-export TEST_DIR=/tmp/porter/terraform
+export TEST_DIR=/tmp/porter/opentofu
 mkdir -p ${TEST_DIR}
 pushd ${TEST_DIR}
 trap popd EXIT
@@ -18,7 +18,7 @@ function verify-output() {
     return 1
   fi
 
-  # Verify the output has no extra newline (mixin should trim newline added by terraform cli)
+  # Verify the output has no extra newline (mixin should trim newline added by tofu cli)
   if [[ "$(${PORTER_HOME}/porter installation output show $1 | wc -l)" > 1 ]]; then
     echo "Output '$1' has an extra newline character"
     return 1
@@ -26,13 +26,13 @@ function verify-output() {
 }
 
 
-# Copy terraform assets
-cp -r ${REPO_DIR}/examples/basic-tf-example/terraform .
+# Copy OpenTofu assets
+cp -r ${REPO_DIR}/examples/basic-tofu-example/opentofu .
 
-# Copy in the terraform porter manifest
-cp ${REPO_DIR}/examples/basic-tf-example/porter.yaml .
+# Copy in the OpenTofu porter manifest
+cp ${REPO_DIR}/examples/basic-tofu-example/porter.yaml .
 
-${PORTER_HOME}/porter build
+${PORTER_HOME}/porter build --verbosity=debug
 ${PORTER_HOME}/porter install --verbosity=debug \
   --param file_contents='foo!' \
   --param map_var='{"foo": "bar"}' \

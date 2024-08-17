@@ -1,0 +1,8 @@
+upgrade:
+- tofu:
+    description: "Upgrade MySQL"
+    logLevel: TRACE
+    backendConfig:
+      key: "my.tfstate"
+    vars:
+      myvar: "foo"

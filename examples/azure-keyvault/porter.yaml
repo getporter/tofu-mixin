@@ -1,6 +1,6 @@
 
 schemaVersion: 1.0.0
-name: terraform-keyvault
+name: tofu-keyvault
 version: 0.2.0
 registry: ghcr.io/getporter
 
@@ -44,16 +44,16 @@ parameters:
 
 mixins:
   - exec
-  - terraform:
+  - tofu:
       initFile: providers.tf
 
 customActions:
   show:
-    description: "Invoke 'terraform show'"
+    description: "Invoke 'tofu show'"
     modifies: false
 
 install:
-  - terraform:
+  - tofu:
       description: "Install Azure Key Vault"
       backendConfig:
         key: ${ bundle.name  }.tfstate
@@ -64,7 +64,7 @@ install:
       - name: vault_uri
 
 upgrade:
-  - terraform:
+  - tofu:
       description: "Upgrade Azure Key Vault"
       backendConfig:
         key: ${ bundle.name  }.tfstate
@@ -75,8 +75,8 @@ upgrade:
       - name: vault_uri
 
 show:
-  - terraform:
-      description: "Invoke 'terraform show'"
+  - tofu:
+      description: "Invoke 'tofu show'"
       backendConfig:
         key: ${ bundle.name  }.tfstate
         storage_account_name: ${ bundle.credentials.backend_storage_account } 
@@ -86,7 +86,7 @@ show:
       - name: vault_uri
 
 uninstall:
-  - terraform:
+  - tofu:
       description: "Uninstall Azure Key Vault"
       backendConfig:
         key: ${ bundle.name  }.tfstate

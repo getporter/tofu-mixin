@@ -1,0 +1,243 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "declaration": {
+      "oneOf": [
+        {
+          "description": "Declare the tofu mixin without configuration",
+          "type": "string",
+          "enum": ["tofu"]
+        },
+        {"$ref": "#/definitions/config"}
+      ]
+    },
+    "config": {
+      "description": "Declare the tofu mixin with additional configuration",
+      "type": "object",
+      "properties": {
+        "tofu": {
+          "description": "tofu mixin configuration",
+          "type": "object",
+          "properties": {
+            "clientVersion": {
+              "description": "Version of OpenTofu to install in the bundle",
+              "type": "string"
+            },
+            "initFile": {
+              "description": "Relative path from the workingDir to a file defining all providers, used when running tofu init.",
+              "type": "string"
+            },
+            "workingDir": {
+              "description": "Relative path to your OpenTofu files, defaults to 'opentofu'",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": ["tofu"]
+    },
+    "installStep": {
+      "type": "object",
+      "properties": {
+        "tofu": {
+          "$ref": "#/definitions/tofu"
+        }
+      },
+      "required": [
+        "tofu"
+      ],
+      "additionalProperties": false
+    },
+    "invokeStep": {
+      "type": "object",
+      "properties": {
+        "tofu": {
+          "$ref": "#/definitions/tofu"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "tofu"
+      ]
+    },
+    "tofu": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "backendConfig": {
+          "type": "object"
+        },
+        "description": {
+          "$ref": "#/definitions/stepDescription"
+        },
+        "flags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": [
+              "null",
+              "boolean",
+              "number",
+              "string"
+            ]
+          }
+        },
+        "logLevel": {
+          "type": "string"
+        },
+        "outputs": {
+          "$ref": "#/definitions/outputs"
+        },
+        "vars": {
+          "type": "object"
+        },
+        "disableVarFile": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description"
+      ]
+    },
+    "upgradeStep": {
+      "type": "object",
+      "properties": {
+        "tofu": {
+          "type": "object",
+          "properties": {
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "backendConfig": {
+              "type": "object"
+            },
+            "description": {
+              "$ref": "#/definitions/stepDescription"
+            },
+            "flags": {
+              "type": "object",
+              "additionalProperties": {
+                "type": [
+                  "null",
+                  "boolean",
+                  "number",
+                  "string"
+                ]
+              }
+            },
+            "logLevel": {
+              "type": "string"
+            },
+            "outputs": {
+              "$ref": "#/definitions/outputs"
+            },
+            "vars": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "description"
+          ]
+        }
+      },
+      "required": [
+        "tofu"
+      ],
+      "additionalProperties": false
+    },
+    "uninstallStep": {
+      "type": "object",
+      "properties": {
+        "tofu": {
+          "type": "object",
+          "properties": {
+            "backendConfig": {
+              "type": "object"
+            },
+            "description": {
+              "$ref": "#/definitions/stepDescription"
+            },
+            "logLevel": {
+              "type": "string"
+            },
+            "outputs": {
+              "$ref": "#/definitions/outputs"
+            },
+            "vars": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "description"
+          ]
+        }
+      },
+      "required": [
+        "tofu"
+      ],
+      "additionalProperties": false
+    },
+    "stepDescription": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ]
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "install": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/installStep"
+      }
+    },
+    "upgrade": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/upgradeStep"
+      }
+    },
+    "uninstall": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/uninstallStep"
+      }
+    },
+     "mixins": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/declaration" }
+    }
+  },
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "$ref": "#/definitions/invokeStep"
+    }
+  }
+}
