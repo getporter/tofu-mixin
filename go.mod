@@ -1,4 +1,4 @@
-module get.porter.sh/mixin/terraform
+module get.porter.sh/mixin/tofu
 
 go 1.21
 

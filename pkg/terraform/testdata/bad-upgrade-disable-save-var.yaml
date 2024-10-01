@@ -1,9 +1,0 @@
-upgrade:
-  - terraform:
-      description: "Upgrade MySQL"
-      logLevel: TRACE
-      disableVarFile: true
-      backendConfig:
-        key: "my.tfstate"
-      vars:
-        myvar: "foo"

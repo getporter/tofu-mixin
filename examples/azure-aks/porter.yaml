@@ -1,5 +1,5 @@
 schemaVersion: 1.0.0
-name: terraform-aks
+name: tofu-aks
 version: 0.2.0
 registry: ghcr.io/getporter
 
@@ -60,16 +60,16 @@ parameters:
     env: TF_VAR_resource_group_name
 
 mixins:
-  - terraform:
+  - tofu:
       initFile: providers.tf
 
 customActions:
   show:
-    description: "Invoke 'terraform show'"
+    description: "Invoke 'tofu show'"
     modifies: false
 
 install:
-  - terraform:
+  - tofu:
       description: "Install Azure Kubernetes Service"
       backendConfig:
         key: ${ bundle.name  }.tfstate
@@ -78,7 +78,7 @@ install:
         access_key: ${ bundle.credentials.backend_storage_access_key } 
 
 upgrade:
-  - terraform:
+  - tofu:
       description: "Upgrade Azure Kubernetes Service"
       backendConfig:
         key: ${ bundle.name  }.tfstate
@@ -87,8 +87,8 @@ upgrade:
         access_key: ${ bundle.credentials.backend_storage_access_key } 
 
 show:
-  - terraform:
-      description: "Invoke 'terraform show'"
+  - tofu:
+      description: "Invoke 'tofu show'"
       backendConfig:
         key: ${ bundle.name  }.tfstate
         storage_account_name: ${ bundle.credentials.backend_storage_account } 
@@ -96,7 +96,7 @@ show:
         access_key: ${ bundle.credentials.backend_storage_access_key } 
 
 uninstall:
-  - terraform:
+  - tofu:
       description: "Uninstall Azure Kubernetes Service"
       backendConfig:
         key: ${ bundle.name  }.tfstate

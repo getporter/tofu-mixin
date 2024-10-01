@@ -1,0 +1,9 @@
+install:
+  - tofu:
+      description: "Install MySQL"
+      logLevel: TRACE
+      disableVarFile: true
+      backendConfig:
+        key: "my.tfstate"
+      vars:
+        myvar: "foo"

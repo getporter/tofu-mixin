@@ -1,0 +1,10 @@
+custom:
+- tofu:
+    description: "Custom Action"
+    arguments:
+      - "custom"
+    logLevel: TRACE
+    backendConfig:
+      key: my.tfstate
+    vars:
+      myvar: foo

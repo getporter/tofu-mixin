@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	mixinName    = "terraform"
-	mixinPackage = "get.porter.sh/mixin/terraform"
+	mixinName    = "tofu"
+	mixinPackage = "get.porter.sh/mixin/tofu"
 	mixinBin     = "bin/mixins/" + mixinName
 )
 

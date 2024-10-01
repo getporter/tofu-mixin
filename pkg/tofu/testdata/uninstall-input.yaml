@@ -1,0 +1,8 @@
+uninstall:
+- tofu:
+    description: "Uninstall MySQL"
+    logLevel: TRACE
+    backendConfig:
+      key: "my.tfstate"
+    vars:
+      myvar: "foo"
