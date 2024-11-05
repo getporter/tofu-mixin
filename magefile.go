@@ -6,6 +6,7 @@ import (
 	"get.porter.sh/magefiles/git"
 	"get.porter.sh/magefiles/mixins"
 	"get.porter.sh/magefiles/porter"
+	"get.porter.sh/magefiles/tools"
 	"github.com/carolynvs/magex/shx"
 )
 
@@ -81,4 +82,9 @@ func TestIntegration() {
 // to comply with our DCO
 func SetupDCO() error {
 	return git.SetupDCO()
+}
+
+// Ensure EnsureMage is installed and on the PATH.
+func EnsureMage() error {
+	return tools.EnsureMage()
 }
