@@ -8,13 +8,14 @@ This is a OpenTofu mixin for [Porter](https://porter.sh).
 
 This will install the latest mixin release via the Porter CLI.
 
-```
+```bash
 porter mixin install tofu
 ```
 
 ## Build from source
 
 Following commands build the OpenTofu mixin.
+
 ```bash
 git clone https://github.com/getporter/tofu-mixin.git
 cd tofu-mixin
@@ -37,13 +38,16 @@ mixins:
 ```
 
 ### clientVersion
+
 The OpenTofu client version can be specified via the `clientVersion` configuration when declaring this mixin.
 
 ### workingDir
+
 The `workingDir` configuration setting is the relative path to your OpenTofu files. Defaults to "opentofu".
 
 ### initFile
-OpenTofu providers are installed into the bundle during porter build. 
+
+OpenTofu providers are installed into the bundle during porter build.
 We recommend that you put your provider declarations into a single file, e.g. "opentofu/providers.tf".
 Then use `initFile` to specify the relative path to this file within workingDir.
 This will dramatically improve Docker image layer caching and performance when building, publishing and installing the bundle.
@@ -63,7 +67,7 @@ By default, the OpenTofu mixin adds the porter and mixin version to the user age
 We use this to understand which version of porter and the mixin are being used by a bundle, and assist with troubleshooting.
 Below is an example of what the user agent string looks like:
 
-```
+```bash
 AZURE_HTTP_USER_AGENT="getporter/porter/v1.0.0 getporter/tofu/v1.2.3"
 ```
 
@@ -91,11 +95,9 @@ The specified path inside the installer (`/cnab/app/opentofu/opentofu.tfstate`) 
 
 Alternatively, state can be managed by a remote backend.  When doing so, each action step needs to supply the remote backend config via `backendConfig`.  In the step examples below, the configuration has key/value pairs according to the [Azurerm](https://opentofu.org/docs/language/settings/backends/azurerm/) backend.
 
-
 ## OpenTofu variables file
 
-By default the mixin will create a default 
-[`opentofu.tfvars.json`](https://opentofu.org/docs/language/values/variables/)
+By default the mixin will create a default [`opentofu.tfvars.json`](https://opentofu.org/docs/language/values/variables/)
 file from the `vars` block during during the install step.
 
 To use this file, a `tfvars` file parameter and output must be added to persist it for subsequent steps.
