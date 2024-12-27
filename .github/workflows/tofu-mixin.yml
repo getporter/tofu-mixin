@@ -4,6 +4,10 @@ on:
    branches:
    - main
    - v*
+   tags:
+   - v*
+   - "!canary*"
+   - "!latest*"
  pull_request:
    branches:
    - main
@@ -25,8 +29,8 @@ jobs:
      run: mage Test
    - name: Cross Compile
      run: mage XBuildAll
-#    - name: Publish
-#      if: success() && github.event_name != 'PullRequest'
-#      env:
-#        GITHUB_TOKEN: "${{ secrets.PUBLISH_TOKEN }}"
-#      run: mage Publish
+   - name: Publish
+     if: success() && github.event_name != 'PullRequest'
+     env:
+       GITHUB_TOKEN: "${{ secrets.PUBLISH_TOKEN }}"
+     run: mage Publish
