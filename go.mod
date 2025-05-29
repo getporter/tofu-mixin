@@ -1,8 +1,6 @@
 module get.porter.sh/mixin/tofu
 
-go 1.23.0
-
-toolchain go1.23.3
+go 1.23.9
 
 replace (
 	// These are replace directives copied from porter
