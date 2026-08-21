@@ -7,7 +7,7 @@ import (
 	"get.porter.sh/magefiles/mixins"
 	"get.porter.sh/magefiles/porter"
 	"get.porter.sh/magefiles/tools"
-	"github.com/carolynvs/magex/shx"
+	"github.com/uwu-tools/magex/shx"
 )
 
 const (
